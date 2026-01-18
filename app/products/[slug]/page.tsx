@@ -6,6 +6,7 @@ import { getProduct, getProducts, getReviewsByProduct } from '@/lib/cosmic'
 import StarRating from '@/components/StarRating'
 import ReviewCard from '@/components/ReviewCard'
 import ProductCard from '@/components/ProductCard'
+import AddToCartButton from '@/components/AddToCartButton'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -165,12 +166,9 @@ export default async function ProductPage({ params }: Props) {
 
               {/* Action Buttons */}
               <div className="flex flex-wrap gap-4 mt-auto pt-6 border-t border-neutral-200">
-                <button 
-                  className={`flex-1 btn-accent ${!product.metadata.in_stock ? 'opacity-50 cursor-not-allowed' : ''}`}
-                  disabled={!product.metadata.in_stock}
-                >
-                  Add to Cart
-                </button>
+                <div className="flex-1">
+                  <AddToCartButton product={product} showQuantity />
+                </div>
                 <button className="btn-outline">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
