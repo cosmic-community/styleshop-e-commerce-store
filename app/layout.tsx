@@ -3,6 +3,7 @@ import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import CosmicBadge from '@/components/CosmicBadge'
+import { CartProvider } from '@/contexts/CartContext'
 
 export const metadata: Metadata = {
   title: 'StyleShop - Modern E-Commerce Store',
@@ -23,12 +24,14 @@ export default function RootLayout({
         <script src="/dashboard-console-capture.js" />
       </head>
       <body className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-1">
-          {children}
-        </main>
-        <Footer />
-        <CosmicBadge bucketSlug={bucketSlug} />
+        <CartProvider>
+          <Header />
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
+          <CosmicBadge bucketSlug={bucketSlug} />
+        </CartProvider>
       </body>
     </html>
   )
