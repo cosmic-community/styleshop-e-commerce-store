@@ -4,9 +4,11 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { useCart } from '@/contexts/CartContext'
 import CartDrawer from './CartDrawer'
+import SearchModal from './SearchModal'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
   const { getCartCount, setIsCartOpen } = useCart()
   const cartCount = getCartCount()
 
@@ -45,8 +47,20 @@ export default function Header() {
               </Link>
             </nav>
 
-            {/* Cart & Mobile Menu Button */}
-            <div className="flex items-center gap-4">
+            {/* Search, Cart & Mobile Menu Button */}
+            <div className="flex items-center gap-2">
+              {/* Search Button */}
+              <button
+                onClick={() => setIsSearchOpen(true)}
+                className="p-2 text-neutral-600 hover:text-primary transition-colors"
+                aria-label="Search products"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </button>
+
+              {/* Cart Button */}
               <button 
                 onClick={() => setIsCartOpen(true)}
                 className="relative p-2 text-neutral-600 hover:text-primary transition-colors"
@@ -106,6 +120,13 @@ export default function Header() {
                 >
                   Collections
                 </Link>
+                <Link 
+                  href="/search" 
+                  className="text-neutral-600 hover:text-primary font-medium transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Search
+                </Link>
               </div>
             </nav>
           )}
@@ -114,6 +135,9 @@ export default function Header() {
       
       {/* Cart Drawer */}
       <CartDrawer />
+
+      {/* Search Modal */}
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </>
   )
 }

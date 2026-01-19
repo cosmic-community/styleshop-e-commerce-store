@@ -59,6 +59,34 @@ export async function getProductsByCollection(collectionId: string): Promise<Pro
   }
 }
 
+// Search products by query
+export async function searchProducts(query: string): Promise<Product[]> {
+  try {
+    const response = await cosmic.objects
+      .find({ type: 'products' })
+      .props(['id', 'title', 'slug', 'metadata'])
+      .depth(1)
+    
+    const products = response.objects as Product[]
+    
+    if (!query.trim()) {
+      return products
+    }
+    
+    const lowerQuery = query.toLowerCase()
+    return products.filter((product) => {
+      const name = product.metadata.name?.toLowerCase() || ''
+      const description = product.metadata.description?.toLowerCase() || ''
+      return name.includes(lowerQuery) || description.includes(lowerQuery)
+    })
+  } catch (error) {
+    if (hasStatus(error) && error.status === 404) {
+      return []
+    }
+    throw new Error('Failed to search products')
+  }
+}
+
 // Fetch all collections
 export async function getCollections(): Promise<Collection[]> {
   try {

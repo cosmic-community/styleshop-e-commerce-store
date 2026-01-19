@@ -64,6 +64,11 @@
     @apply w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent
            outline-none transition-colors placeholder:text-neutral-400;
   }
+
+  /* Search specific styles */
+  .search-highlight {
+    @apply bg-accent/20 text-accent-dark px-0.5 rounded;
+  }
 }
 
 @layer utilities {
