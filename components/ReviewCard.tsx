@@ -10,6 +10,13 @@ interface ReviewCardProps {
 export default function ReviewCard({ review, showProduct = true }: ReviewCardProps) {
   const rating = parseInt(review.metadata.rating.key)
 
+  // Changed: Safely access product data with null checks
+  const product = review.metadata.product
+  const productName = product?.metadata?.name
+  const productSlug = product?.slug
+  const productImage = product?.metadata?.product_image
+  const productPrice = product?.metadata?.price
+
   return (
     <div className="bg-white rounded-xl p-6 shadow-sm border border-neutral-100">
       {/* Header */}
@@ -32,17 +39,17 @@ export default function ReviewCard({ review, showProduct = true }: ReviewCardPro
         </p>
       )}
 
-      {/* Product Link */}
-      {showProduct && review.metadata.product && (
+      {/* Product Link - Changed: Added comprehensive null checks */}
+      {showProduct && productSlug && productName && (
         <Link 
-          href={`/products/${review.metadata.product.slug}`}
+          href={`/products/${productSlug}`}
           className="flex items-center gap-3 pt-4 border-t border-neutral-100 group"
         >
-          {review.metadata.product.metadata.product_image && (
+          {productImage && (
             <div className="w-12 h-12 rounded-lg overflow-hidden bg-neutral-100 flex-shrink-0">
               <img
-                src={`${review.metadata.product.metadata.product_image.imgix_url}?w=100&h=100&fit=crop&auto=format,compress`}
-                alt={review.metadata.product.metadata.name}
+                src={`${productImage.imgix_url}?w=100&h=100&fit=crop&auto=format,compress`}
+                alt={productName}
                 className="w-full h-full object-cover"
                 width={48}
                 height={48}
@@ -51,11 +58,13 @@ export default function ReviewCard({ review, showProduct = true }: ReviewCardPro
           )}
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-primary group-hover:text-accent transition-colors truncate">
-              {review.metadata.product.metadata.name}
+              {productName}
             </p>
-            <p className="text-sm text-neutral-500">
-              ${review.metadata.product.metadata.price.toFixed(2)}
-            </p>
+            {productPrice !== undefined && (
+              <p className="text-sm text-neutral-500">
+                ${productPrice.toFixed(2)}
+              </p>
+            )}
           </div>
         </Link>
       )}

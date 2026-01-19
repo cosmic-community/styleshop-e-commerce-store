@@ -8,6 +8,10 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, showCollection = true }: ProductCardProps) {
+  // Changed: Safely access collection data with null checks
+  const collection = product.metadata.collection
+  const collectionName = collection?.metadata?.name
+
   return (
     <Link href={`/products/${product.slug}`} className="card group">
       {/* Image */}
@@ -45,10 +49,10 @@ export default function ProductCard({ product, showCollection = true }: ProductC
 
       {/* Content */}
       <div className="p-4">
-        {/* Collection Badge */}
-        {showCollection && product.metadata.collection && (
+        {/* Collection Badge - Changed: Added null check for collection metadata */}
+        {showCollection && collectionName && (
           <span className="text-xs font-medium text-accent mb-2 block">
-            {product.metadata.collection.metadata.name}
+            {collectionName}
           </span>
         )}
 
