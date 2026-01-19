@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { Product } from '@/types'
-import StarRating from './StarRating'
 
 interface ProductCardProps {
   product: Product
@@ -45,8 +44,8 @@ export default function ProductCard({ product, showCollection = true }: ProductC
 
       {/* Content */}
       <div className="p-4">
-        {/* Collection Badge */}
-        {showCollection && product.metadata.collection && (
+        {/* Collection Badge - Changed: Added null check for collection.metadata */}
+        {showCollection && product.metadata.collection && product.metadata.collection.metadata && (
           <span className="text-xs font-medium text-accent mb-2 block">
             {product.metadata.collection.metadata.name}
           </span>

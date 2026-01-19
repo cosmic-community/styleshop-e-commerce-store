@@ -101,8 +101,8 @@ export default async function ProductPage({ params }: Props) {
 
             {/* Product Info */}
             <div className="flex flex-col">
-              {/* Collection Badge */}
-              {product.metadata.collection && (
+              {/* Collection Badge - Changed: Added null check for collection and collection.metadata */}
+              {product.metadata.collection && product.metadata.collection.metadata && (
                 <Link
                   href={`/collections/${product.metadata.collection.slug}`}
                   className="inline-flex items-center gap-2 text-sm text-accent font-medium mb-4 hover:underline"
