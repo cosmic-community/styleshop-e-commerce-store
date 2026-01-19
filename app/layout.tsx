@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: 'StyleShop - Modern E-Commerce Store',
   description: 'Discover curated collections of premium products. Shop the latest styles in fashion, accessories, and more.',
   keywords: ['e-commerce', 'fashion', 'shopping', 'style', 'accessories'],
+  icons: {
+    icon: '/favicon.svg',
+  },
 }
 
 export default function RootLayout({
