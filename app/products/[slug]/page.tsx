@@ -52,6 +52,11 @@ export default async function ProductPage({ params }: Props) {
     ? reviews.reduce((acc, r) => acc + parseInt(r.metadata.rating.key), 0) / reviews.length
     : 0
 
+  // Changed: Safely access collection data with null checks
+  const collection = product.metadata.collection
+  const collectionName = collection?.metadata?.name
+  const collectionSlug = collection?.slug
+
   return (
     <div className="animate-fade-in">
       {/* Breadcrumb */}
@@ -101,14 +106,14 @@ export default async function ProductPage({ params }: Props) {
 
             {/* Product Info */}
             <div className="flex flex-col">
-              {/* Collection Badge */}
-              {product.metadata.collection && (
+              {/* Collection Badge - Changed: Added null check for collection metadata */}
+              {collectionSlug && collectionName && (
                 <Link
-                  href={`/collections/${product.metadata.collection.slug}`}
+                  href={`/collections/${collectionSlug}`}
                   className="inline-flex items-center gap-2 text-sm text-accent font-medium mb-4 hover:underline"
                 >
                   <span className="w-2 h-2 bg-accent rounded-full" />
-                  {product.metadata.collection.metadata.name}
+                  {collectionName}
                 </Link>
               )}
 
