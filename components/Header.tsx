@@ -38,6 +38,12 @@ export default function Header() {
             >
               Collections
             </Link>
+            <Link 
+              href="/contact" 
+              className="text-neutral-600 hover:text-primary font-medium transition-colors"
+            >
+              Contact
+            </Link>
           </nav>
 
           {/* Cart & Mobile Menu Button */}
@@ -97,6 +103,13 @@ export default function Header() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Collections
+              </Link>
+              <Link 
+                href="/contact" 
+                className="text-neutral-600 hover:text-primary font-medium transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Contact
               </Link>
             </div>
           </nav>

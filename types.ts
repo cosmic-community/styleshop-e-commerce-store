@@ -70,3 +70,16 @@ export interface CosmicSingleResponse<T> {
 export function hasStatus(error: unknown): error is { status: number } {
   return typeof error === 'object' && error !== null && 'status' in error;
 }
+
+// Contact form data type
+export interface ContactFormData {
+  name: string;
+  email: string;
+  message: string;
+}
+
+// Contact form response type
+export interface ContactFormResponse {
+  success: boolean;
+  message: string;
+}
